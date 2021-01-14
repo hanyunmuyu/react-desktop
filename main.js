@@ -2,7 +2,7 @@
 const {app, Menu, BrowserWindow, dialog, screen} = require('electron');
 const path = require('path')
 const serve = require('electron-serve');
-const exec = require('child_process').exec;
+const child_process = require('child_process');
 const url = path.resolve(__dirname, '..')
 const loadURL = serve({directory: 'build'});
 const server = async () => {
@@ -16,9 +16,13 @@ if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'pre') {
 } else {
     mainPath = url + '/main'
 }
-exec(mainPath, {}, (err, stdout, stderr) => {
+let childProcess = "";
+
+childProcess = child_process.exec(mainPath, {}, (err, stdout, stderr) => {
     console.log(err, stdout, stderr)
 })
+
+// console.log(childProcess.pid)
 
 function makeSingleInstance() {
     if (process.mas) return
@@ -67,6 +71,7 @@ const createWindow = () => {
             if (r.response === 1) {
                 e.preventDefault();		//阻止默认行为，一定要有
                 mainWindow = null
+                childProcess.kill()
                 app.exit();		//exit()直接关闭客户端，不会执行quit();
             } else if (r.response === 0) {
                 e.preventDefault();		//阻止默认行为，一定要有
