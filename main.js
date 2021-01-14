@@ -3,7 +3,7 @@ const {app, Menu, BrowserWindow, dialog, screen} = require('electron');
 const path = require('path')
 const serve = require('electron-serve');
 const exec = require('child_process').exec;
-
+const url = path.resolve(__dirname, '..')
 const loadURL = serve({directory: 'build'});
 const server = async () => {
     await app.whenReady().then(() => {
@@ -45,7 +45,6 @@ const createWindow = () => {
     if (process.env.NODE_ENV === 'development') {
         mainWindow.webContents.openDevTools()
     } else {
-        const url = path.resolve(__dirname, '..')
         let mainPath = url + '/main'
         exec(mainPath, (rr, stdout, stderr) => {
         })
