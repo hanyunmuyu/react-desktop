@@ -10,6 +10,15 @@ const server = async () => {
         loadURL(mainWindow);
     });
 }
+let mainPath
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'pre') {
+    mainPath = './main'
+} else {
+    mainPath = url + '/main'
+}
+exec(mainPath, {}, (err, stdout, stderr) => {
+    console.log(err, stdout, stderr)
+})
 
 function makeSingleInstance() {
     if (process.mas) return
@@ -42,14 +51,9 @@ const createWindow = () => {
     server().then(r => {
         console.log('server start')
     })
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'pre') {
         mainWindow.webContents.openDevTools()
-    } else {
-        let mainPath = url + '/main'
-        exec(mainPath, (rr, stdout, stderr) => {
-        })
     }
-
     mainWindow.on('close', (e) => {
         e.preventDefault()
         dialog.showMessageBox(mainWindow, {
@@ -60,7 +64,6 @@ const createWindow = () => {
             message: '确定要关闭吗？',
             buttons: ['最小化', '直接退出', '取消']
         }).then(r => {
-            console.log(r)
             if (r.response === 1) {
                 e.preventDefault();		//阻止默认行为，一定要有
                 mainWindow = null
