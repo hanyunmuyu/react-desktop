@@ -58,7 +58,6 @@
     "customize-cra": "^1.0.0",
     "electron": "^11.2.0",
     "electron-builder": "^22.9.1",
-    "electron-nightly": "^13.0.0-nightly.20210113",
     "react-app-rewired": "^2.1.8"
   },
   "build": {

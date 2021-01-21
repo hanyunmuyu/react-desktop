@@ -1,5 +1,5 @@
 /* main.js */
-const {app, Menu, BrowserWindow, dialog, screen} = require('electron');
+const {app, Menu, BrowserWindow, dialog, screen, MenuItem} = require('electron');
 const path = require('path')
 const serve = require('electron-serve');
 const child_process = require('child_process');
@@ -81,12 +81,23 @@ const createWindow = () => {
     });
 };
 
-app.whenReady().then(() => {
+app.whenReady().then(options => {
     createWindow()
-    mainWindow.on('ready-to-show', () => {
+    mainWindow.on('ready-to-show', options => {
         mainWindow.show();
+
     })
-    // mainWindow.show()
+    const menu = new Menu();
+    menu.append(new MenuItem({label: '全选', role: 'selectall'}));
+    menu.append(new MenuItem({label: '复制', role: 'copy'}));
+    menu.append(new MenuItem({label: '粘贴', role: 'paste'}));
+    menu.append(new MenuItem({label: '剪切', role: 'cut'}));
+    menu.append(new MenuItem({label: '删除', role: 'delete'}));
+    menu.append(new MenuItem({label: '撤销', role: 'undo'}));
+    menu.append(new MenuItem({label: '重做', role: 'redo'}));
+    mainWindow.webContents.on('context-menu', (e, params) => {
+        menu.popup({window: mainWindow, x: params.x, y: params.y})
+    })
 })
 
 app.on('window-all-closed', function () {

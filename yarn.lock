@@ -1203,6 +1203,11 @@
     global-agent "^2.0.2"
     global-tunnel-ng "^2.7.1"
 
+"@electron/remote@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npm.taobao.org/@electron/remote/download/@electron/remote-1.0.2.tgz#34e1450db6951d980f91728698f90ccce212a958"
+  integrity sha1-NOFFDbaVHZgPkXKGmPkMzOISqVg=
+
 "@eslint/eslintrc@^0.2.2":
   version "0.2.2"
   resolved "https://registry.npm.taobao.org/@eslint/eslintrc/download/@eslint/eslintrc-0.2.2.tgz?cache=0&sync_timestamp=1607143789488&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40eslint%2Feslintrc%2Fdownload%2F%40eslint%2Feslintrc-0.2.2.tgz#d01fc791e2fc33e88a29d6f3dc7e93d0cd784b76"
@@ -1835,11 +1840,6 @@
   version "12.19.13"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.19.13.tgz#888e2b34159fb91496589484ec169618212b51b7"
   integrity sha1-iI4rNBWfuRSWWJSE7BaWGCErUbc=
-
-"@types/node@^14.6.2":
-  version "14.14.20"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.20.tgz#f7974863edd21d1f8a494a73e8e2b3658615c340"
-  integrity sha1-95dIY+3SHR+KSUpz6OKzZYYVw0A=
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -4678,15 +4678,6 @@ electron-builder@^22.9.1:
     sanitize-filename "^1.6.3"
     update-notifier "^4.1.1"
     yargs "^16.0.3"
-
-electron-nightly@^13.0.0-nightly.20210113:
-  version "13.0.0-nightly.20210113"
-  resolved "https://registry.npm.taobao.org/electron-nightly/download/electron-nightly-13.0.0-nightly.20210113.tgz#da79c3dff8f24a30a29a05cc380c9a5604af6278"
-  integrity sha1-2nnD3/jySjCimgXMOAyaVgSvYng=
-  dependencies:
-    "@electron/get" "^1.0.1"
-    "@types/node" "^14.6.2"
-    extract-zip "^1.0.3"
 
 electron-publish@22.9.1:
   version "22.9.1"
