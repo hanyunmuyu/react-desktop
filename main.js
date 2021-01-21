@@ -1,5 +1,5 @@
 /* main.js */
-const {app, Menu, BrowserWindow, dialog, screen, MenuItem} = require('electron');
+const {app, Menu, BrowserWindow, dialog, screen, MenuItem, Tray} = require('electron');
 const path = require('path')
 const serve = require('electron-serve');
 const child_process = require('child_process');
@@ -80,8 +80,22 @@ const createWindow = () => {
         })
     });
 };
-
+let tray = null
 app.whenReady().then(options => {
+    tray = new Tray('./tray.png')
+    tray.setToolTip(app.name)
+    const contextMenu = Menu.buildFromTemplate([
+        {
+            role: 'minimize',
+            label: '最小化'
+        },
+        {role: 'togglefullscreen', label: '全屏'},
+        {
+            label: '退出',
+            role: 'quit'
+        },
+    ])
+    tray.setContextMenu(contextMenu)
     createWindow()
     mainWindow.on('ready-to-show', options => {
         mainWindow.show();
