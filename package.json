@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "main": "main.js",
+  "description": "react-desktop",
+  "author": "hanyun<1355081829@qq.com>",
   "homepage": ".",
   "dependencies": {
     "@electron/remote": "^1.0.2",
@@ -79,6 +81,7 @@
       "!node_modules/asar/**/*"
     ],
     "dmg": {
+      "icon": "./Icon.icns",
       "background": "./bg1.jpeg",
       "window": {
         "x": 100,

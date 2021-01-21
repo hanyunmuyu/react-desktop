@@ -196,10 +196,10 @@ const template = [
         label: '帮助',
         submenu: [
             {
-                label: '关于我们',
+                label: 'API文档',
                 click: async () => {
                     const {shell} = require('electron')
-                    await shell.openExternal('https://electronjs.org')
+                    await shell.openExternal('http://127.0.0.1:886/swagger/index.html')
                 }
             }
         ]
