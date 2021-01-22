@@ -82,7 +82,13 @@ const createWindow = () => {
 };
 let tray = null
 app.whenReady().then(options => {
-    tray = new Tray('./tray.png')
+    let trayPic = ''
+    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'pre') {
+        trayPic = './tray.png'
+    } else {
+        trayPic = url + '/tray.png'
+    }
+    tray = new Tray(trayPic)
     const contextMenu = Menu.buildFromTemplate([
         {
             role: 'minimize',

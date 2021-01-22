@@ -72,6 +72,10 @@
       {
         "from": "./main",
         "to": "./main"
+      },
+      {
+        "from": "./tray.png",
+        "to": "./tray.png"
       }
     ],
     "files": [
