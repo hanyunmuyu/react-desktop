@@ -83,7 +83,6 @@ const createWindow = () => {
 let tray = null
 app.whenReady().then(options => {
     tray = new Tray('./tray.png')
-    tray.setToolTip(app.name)
     const contextMenu = Menu.buildFromTemplate([
         {
             role: 'minimize',
@@ -95,11 +94,17 @@ app.whenReady().then(options => {
             role: 'quit'
         },
     ])
-    tray.setContextMenu(contextMenu)
+    tray.setToolTip(app.name)
+    // tray.setContextMenu(contextMenu)
+    tray.on('right-click', () => {
+        tray.popUpContextMenu(contextMenu)
+    })
+    tray.on('click', (e, bounds) => {
+        mainWindow.show()
+    })
     createWindow()
     mainWindow.on('ready-to-show', options => {
         mainWindow.show();
-
     })
     const menu = new Menu();
     menu.append(new MenuItem({label: '全选', role: 'selectall'}));
@@ -118,9 +123,11 @@ app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') app.quit();
 });
 
-app.on('activate', function () {
-    if (mainWindow === null) createWindow();
-});
+app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow()
+    }
+})
 const isMac = process.platform === 'darwin'
 
 const template = [
