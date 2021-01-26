@@ -59,8 +59,12 @@ const createWindow = () => {
         mainWindow.webContents.openDevTools()
     }
     mainWindow.on('close', (e) => {
-        e.preventDefault()
-        mainWindow.hide()
+        if (app.quitting) {
+            mainWindow = null
+        } else {
+            e.preventDefault()
+            mainWindow.hide()
+        }
     });
 };
 let tray = null
@@ -80,7 +84,10 @@ app.whenReady().then(options => {
         {role: 'togglefullscreen', label: '全屏'},
         {
             label: '退出',
-            role: 'quit'
+            role: 'quit',
+            click:()=>{
+                app.quit()
+            }
         },
     ])
     tray.setToolTip(app.name)
