@@ -60,24 +60,7 @@ const createWindow = () => {
     }
     mainWindow.on('close', (e) => {
         e.preventDefault()
-        dialog.showMessageBox(mainWindow, {
-            type: 'info',
-            title: 'Information',
-            defaultId: 1,
-            cancelId: 2,
-            message: '确定要关闭吗？',
-            buttons: ['最小化', '直接退出', '取消']
-        }).then(r => {
-            if (r.response === 1) {
-                e.preventDefault();		//阻止默认行为，一定要有
-                mainWindow = null
-                childProcess.kill()
-                app.exit();		//exit()直接关闭客户端，不会执行quit();
-            } else if (r.response === 0) {
-                e.preventDefault();		//阻止默认行为，一定要有
-                mainWindow.minimize();	//调用 最小化实例方法
-            }
-        })
+        app.hide();		//exit()直接关闭客户端，不会执行quit();
     });
 };
 let tray = null
@@ -113,9 +96,10 @@ app.whenReady().then(options => {
         mainWindow.show();
     })
     const menu = new Menu();
-    menu.append(new MenuItem({label: '全选', role: 'selectall'}));
     menu.append(new MenuItem({label: '复制', role: 'copy'}));
     menu.append(new MenuItem({label: '粘贴', role: 'paste'}));
+    menu.append(new MenuItem({label: '刷新', role: 'reload'}));
+    menu.append(new MenuItem({label: '全选', role: 'selectall'}));
     menu.append(new MenuItem({label: '剪切', role: 'cut'}));
     menu.append(new MenuItem({label: '删除', role: 'delete'}));
     menu.append(new MenuItem({label: '撤销', role: 'undo'}));
