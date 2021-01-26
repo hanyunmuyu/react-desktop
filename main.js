@@ -60,7 +60,23 @@ const createWindow = () => {
     }
     mainWindow.on('close', (e) => {
         if (app.quitting) {
-            mainWindow = null
+            e.preventDefault()
+            dialog.showMessageBox(mainWindow, {
+                type: 'info',
+                title: '退出' + app.name,
+                defaultId: 0,
+                cancelId: 1,
+                message: '确定要退出吗？',
+                buttons: ['退出', '取消']
+            }).then(r => {
+                if (r.response === 0) {
+                    e.preventDefault();		//阻止默认行为，一定要有
+                    mainWindow = null
+                    childProcess.kill()
+                    app.exit();		//exit()直接关闭客户端，不会执行quit();
+                }
+            })
+            app.quitting = false
         } else {
             e.preventDefault()
             mainWindow.hide()
@@ -85,7 +101,7 @@ app.whenReady().then(options => {
         {
             label: '退出',
             role: 'quit',
-            click:()=>{
+            click: () => {
                 app.quit()
             }
         },
