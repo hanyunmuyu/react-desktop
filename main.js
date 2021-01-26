@@ -60,7 +60,7 @@ const createWindow = () => {
     }
     mainWindow.on('close', (e) => {
         e.preventDefault()
-        app.hide();		//exit()直接关闭客户端，不会执行quit();
+        mainWindow.hide()
     });
 };
 let tray = null
@@ -118,6 +118,7 @@ app.on('activate', () => {
         createWindow()
     }
 })
+app.on('before-quit', () => app.quitting = true)
 const isMac = process.platform === 'darwin'
 
 const template = [
